@@ -61,12 +61,13 @@ app.get("/listings/:id/edit", async (req,res) => {
 });
 
 //UPDATE Route
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id", async (req, res) => {      //here s a small probelm now wait im checking ok...sure
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, {...req.body.listing});
+   
     res.redirect(`/listings/${id}`);
 })
-
+//ARE YOU THERE... yeah i m searching for the error on mygpt4 ...ok 
 //Delete Route
 app.delete("/listings/:id", async (req, res) => {
     let { id } = req.params;
