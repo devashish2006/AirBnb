@@ -8,23 +8,24 @@ const { route } = require("./review");
 const userController = require("../controllers/users.js");
 
 
-
-router.get("/signup", userController.renderSignupForm); 
-
-router.post(
-    "/signup",WrapAsync(userController.signup)
+router.route("/signup")
+.get(
+     userController.renderSignupForm)
+.post(
+    WrapAsync(userController.signup)
 )
 
-router.get("/login", userController.renderLoginForm);
-
-router.post(
-    "/login", 
+router.route("/login")
+.get( userController.renderLoginForm)
+.post(
     passport.authenticate("local", {
     flailureRedirect: "/login",
     failureFlash: true,
 }),
     userController.login
 );
+
+
 
 //logout
 router.get("/logout", userController.logout)
