@@ -7,27 +7,25 @@ const listings = require("../Routes/listing.js");
 const Listing = require("../models/listing.js");
 const { isLoggedIn, isOwner,validateListing } = require("../middleware.js");
 
-const multer = require('multer');
 
-const { storage } = require("../cloudConfig.js")
-// const upload = multer({ storage })
-const upload = multer({ dest: 'uploads/' })
+const validateListing = (req, res, next) => {
+    let {error} = listingSchema.validate(req.body);
+
+    if (error) {
+        let errMsg = error.details.map((el) => el.message).join(",");
+        throw new ExpressError(400, errMsg);
+    } else{
+        next();
+    }
+};
 
 
-const listingController = require("../controllers/listings.js");
 
-router
-    .route("/")
-    .get(wrapAsync(listingController.index))
-//     .post(
-//         validateListing,
-//         isLoggedIn,
-//         wrapAsync(listingController.createListing)
-// );
-.post(upload.single("listing[image]"), (req,res) => {
-    console.log(req.file);
-    res.send(req.file);
-});
+//Index Route
+router.get("/",wrapAsync( async (req, res) => {
+    const allListings =  await Listing.find({});
+    res.render("listings/index.ejs", {allListings});
+}));
 
 //New Route
 router.get("/new", isLoggedIn, listingController.renderNewForm)
