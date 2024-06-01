@@ -6,11 +6,11 @@
     <form method="POST" action="/listings" novalidate class="needs-validation">
         <div class="mb-3">
             <label for="title" class="form-label" required>Title</label>
-            <input name="listing[title]" placeholder="enter a catchy Title" type="text" class="form-control" required>
+            <input name="listing[title]" placeholder="enter a catchy Title" type="text" class="form-control"  enctype="multipart/form-data" required>
             <div class="valid-feedback">Title looks good!</div>
         </div>
        
-
+ 
         <div class="mb-3">
             <label for="description" class="form-label" required>description</label>
             <textarea name="listing[description]" placeholder="enter description" type="text"  class="form-control" required></textarea>
@@ -19,9 +19,11 @@
 
        <div class="mb-3">
         <label for="image" class="form-label">Image</label>
-        <input name="listing[image][url]" placeholder="enter image URL/Link" type="text" class="form-control">
+        <input name="listing[image]" type="file" class="form-control">
        
        </div>
+
+
 
        <div class="row">
         <div class="mb-3 col-md-4">
